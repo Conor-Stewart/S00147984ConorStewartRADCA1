@@ -1,0 +1,87 @@
+﻿<div class="row">
+
+    <div class="col-md-4">
+        <h2>Team List</h2>
+        <input type="button" value="Get Teams" class="btn btn-primary" onclick="getTeams()" />
+        <ul id="team-list" class="list-group" />
+    </div>
+    <div class="col-md-4">
+        <h2>Logo</h2>
+        <img id="imgLogo" width="100" height="100" />
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <h2>Team Search</h2>
+        <input type="text" id="teamID" size="5" />
+        <input type="button" value="Find Team" class="btn btn-primary" onclick="findTeam()" />
+    </div>
+
+    @*<div class="col-md-4">
+            <h2>Book Reviews</h2>
+            <ul id="review-list" class="list-group"></ul>
+        </div>*@
+</div>
+
+<script>
+
+    var uri = 'http://localhost:51397/api/Teams/';
+
+    function clearList() {
+        $('#team-list').empty();
+    }
+
+
+    function getTeams() {
+        clearList();
+
+        $.getJSON(uri).done(function (data) {
+            $.each(data, function (key, item) {
+                $('<li>', { text: item.id + ' : ' + item.Team }).appendTo($('#team-list'));
+            });
+        });
+    }
+
+    function findTeam() {
+        var id = $('#teamID').val();
+
+        $.getJSON(uri + id)
+            .done(function (data) {
+                $('#current-team').text(data.Name);
+            })
+            .fail(function (jqXHR, textStatus, err) {
+                $('#current-team').text('Error: ' + err);
+            });
+    }
+
+    //function getBookReviews() {
+    //    var id = $('#bookID').val();
+    //    $('#review-list').empty();
+
+    //    $.getJSON(uri + id).done(
+    //        function (data) {
+    //            if (data.Reviews) {
+    //                $.each(data.Reviews, function (i, item) {
+    //                    $('<li>', { text: item.Content }).appendTo($('#review-list'));
+    //                });
+    //            }
+    //        })
+    // }
+
+    //$.ajax(
+    //    {
+    //        type: 'POST',
+    //        url: uri,
+    //        data: JSON.stringify(book),
+    //        contentType: "application/json; charset=utf-8",
+    //        dataType: "json",
+    //        processData: true,
+    //        success: function (data, status) { getBooks(); },
+    //        error: function (xhr, ajaxOptions, thrownError) { alert('Error: ' + thrownError) }
+    //    })
+    //}
+
+</script>
+
