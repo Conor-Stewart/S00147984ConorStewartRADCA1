@@ -170,7 +170,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DbInitialiser.cs" />
     <Compile Include="Models\Teams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -178,6 +178,26 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\arsenal.png" />
+    <Content Include="Content\Images\astonvilla.png" />
+    <Content Include="Content\Images\bournemouth.png" />
+    <Content Include="Content\Images\chelsea.png" />
+    <Content Include="Content\Images\crystalpalace.png" />
+    <Content Include="Content\Images\everton.png" />
+    <Content Include="Content\Images\leicestercity.png" />
+    <Content Include="Content\Images\liverpool.png" />
+    <Content Include="Content\Images\manchestercity.png" />
+    <Content Include="Content\Images\manchesterunited.png" />
+    <Content Include="Content\Images\newcastle.png" />
+    <Content Include="Content\Images\norwich.png" />
+    <Content Include="Content\Images\southampton.png" />
+    <Content Include="Content\Images\stoke.png" />
+    <Content Include="Content\Images\sunderland.png" />
+    <Content Include="Content\Images\swansea.png" />
+    <Content Include="Content\Images\tottenham.png" />
+    <Content Include="Content\Images\waford.png" />
+    <Content Include="Content\Images\westbrom.png" />
+    <Content Include="Content\Images\westham.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

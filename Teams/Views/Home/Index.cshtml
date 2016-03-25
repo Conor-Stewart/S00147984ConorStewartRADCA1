@@ -5,29 +5,42 @@
         <input type="button" value="Get Teams" class="btn btn-primary" onclick="getTeams()" />
         <ul id="team-list" class="list-group" />
     </div>
-    <div class="col-md-4">
-        <h2>Logo</h2>
-        <img id="imgLogo" width="100" height="100" />
-    </div>
-</div>
-
-<div class="row">
 
     <div class="col-md-4">
-        <h2>Team Search</h2>
+        <h2>Get details</h2>
         <input type="text" id="teamID" size="5" />
-        <input type="button" value="Find Team" class="btn btn-primary" onclick="findTeam()" />
+        <input type="button" value="Get Details" class="btn btn-primary" onclick="findTeam()" />
     </div>
 
-    @*<div class="col-md-4">
-            <h2>Book Reviews</h2>
-            <ul id="review-list" class="list-group"></ul>
-        </div>*@
+    <div class="col-md-4">
+        <h2>Search for team</h2>
+        <input type="text" id="teamName" size="10" />
+        <input type="button" value="Get Picture" class="btn btn-primary" onclick="findPicture()" />
+    </div>
+    <div class="row">
+
+        <div class="col-md-4">
+            <h2>Team Details</h2>
+            <ul id="current-team" class="list-group"></ul>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+
+            </div>
+
+
+
+            <div class="col-md-4">
+                <h2>Images</h2>
+                <div id="img"></div>
+            </div>
+    </div>
 </div>
 
 <script>
 
-    var uri = 'http://localhost:51397/api/Teams/';
+    var uri = 'http://localhost:51397/api/teams/';
 
     function clearList() {
         $('#team-list').empty();
@@ -39,7 +52,7 @@
 
         $.getJSON(uri).done(function (data) {
             $.each(data, function (key, item) {
-                $('<li>', { text: item.id + ' : ' + item.Team }).appendTo($('#team-list'));
+                $('<li>', { text: item.ID + ' : ' + item.Team }).appendTo($('#team-list'));
             });
         });
     }
@@ -49,39 +62,36 @@
 
         $.getJSON(uri + id)
             .done(function (data) {
-                $('#current-team').text(data.Name);
+                $('#current-team').html("Team : " + data.Team + "<br />" + "Year Founded : " + data.Founded + "<br />" + "Manager :" + data.Manager
+                    + "<br />" + "Nick Name :" + data.NickNames + "<br />" + "Stadium :" + data.Stadium + "<br />"
+                    + "Stadium Capacity:" + data.StadiumCapacity + "<br />" + "Champions League Wins :" + data.ChampionsLeague 
+                    + "<br />" + "Premier League Wins: " + data.PremierLeague + "<br />" + "FA Cup Wins:" + data.FaCup + "<br />"
+                    + "League Cup Wins: " + data.LeagueCup + "<br />" + "Community Shield Wins: " + data.CommunityShield + "<br />"
+                    + "Home Colours: " + data.homeColours + "<br />" + "Away Colours: " + data.AwayColours + "<br />"
+                    + "Third Colours: " + data.ThirdColours + "<br />" + "Kit Maker: " + data.KitMaker)
             })
+
             .fail(function (jqXHR, textStatus, err) {
                 $('#current-team').text('Error: ' + err);
             });
     }
 
-    //function getBookReviews() {
-    //    var id = $('#bookID').val();
-    //    $('#review-list').empty();
-
-    //    $.getJSON(uri + id).done(
-    //        function (data) {
-    //            if (data.Reviews) {
-    //                $.each(data.Reviews, function (i, item) {
-    //                    $('<li>', { text: item.Content }).appendTo($('#review-list'));
-    //                });
-    //            }
-    //        })
-    // }
-
-    //$.ajax(
-    //    {
-    //        type: 'POST',
-    //        url: uri,
-    //        data: JSON.stringify(book),
-    //        contentType: "application/json; charset=utf-8",
-    //        dataType: "json",
-    //        processData: true,
-    //        success: function (data, status) { getBooks(); },
-    //        error: function (xhr, ajaxOptions, thrownError) { alert('Error: ' + thrownError) }
-    //    })
-    //}
-
+    function findPicture() {
+        var name = $('#teamName').val();
+        var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+        $.getJSON(flickerAPI, {
+            tags: name,
+            tagmode: "any",
+            format: "json",
+            per_page: "1"
+        })
+          .done(function (data) {
+              $.each(data.items, function (i, item) {
+                  $("<img>").attr("src", item.media.m).appendTo("#img");
+                  if (i == 0) {
+                      return false;
+                  }
+              });
+          });
+    };
 </script>
-

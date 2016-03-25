@@ -11,7 +11,7 @@ namespace Teams.Controllers
 {
     public class TeamsController : ApiController
     {
-        private LeagueContext db = new LeagueContext();
+        private TeamDB db = new TeamDB();
 
         // GET: api/Books
         public List<LeagueTeams> GetTeams()
@@ -30,7 +30,7 @@ namespace Teams.Controllers
             return leagueTeams;
         }
 
-        // GET: api/Books/5
+        // GET: api/Teams/5
         [ResponseType(typeof(LeagueTeams))]
         public IHttpActionResult GetTeam(int id)
         {
