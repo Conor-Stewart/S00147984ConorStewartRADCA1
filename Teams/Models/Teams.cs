@@ -26,9 +26,6 @@ namespace Teams.Models
         public string AwayColours { get; set; }
         public string ThirdColours { get; set; }
         public string KitMaker { get; set; }
-
-
-
     }
 
     class TeamDB : DbContext
